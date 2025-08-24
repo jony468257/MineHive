@@ -1,0 +1,181 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Mulish', sans-serif;
+}
+
+.main-contain {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    backdrop-filter: blur(2px);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3) 50%, rgba(168, 11, 182, 0.22) 50%), url(../image/crm-login-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card-bg {
+    margin-right: 80px;
+    padding: 40px;
+    width: 30rem;
+    height: auto;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.sign-title {
+    color: #000;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.subtitle {
+    color: #A0A0A0;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.password {
+    position: relative;
+}
+
+#pass_view {
+    position: absolute;
+    right: 15px;
+    top: 43px;
+    background: none;
+}
+
+.login-btn {
+    display: flex;
+    padding: 14px 16px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    border: none;
+    background: #009A75;
+    color: #F4F4F4;
+}
+
+.label-font-size {
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 21px;
+}
+
+input::placeholder {
+    font-size: 0.875rem;
+}
+
+input[type="email"], input[type="password"], input[type="text"] {
+    background: transparent;
+    padding: 10px 20px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #1c274d !important;
+}
+
+.login-logo {
+    height: 2.2rem;
+}
+
+.army_logo {
+    height: 5.2rem;
+}
+
+input[type="email"], input[type="password"], input[type="text"] {
+    background: #fff !important;
+    padding: 10px 20px;
+}
+
+.text_border {
+    background-color: #4caf50;
+    height: 2px;
+    width: 20%;
+}
+
+.text_middle {
+    width: auto;
+    text-wrap: nowrap;
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: bolder;
+    height: auto;
+    margin: 0 5px;
+}
+
+.uss {
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 18px;
+}
+
+@media only screen and (max-width: 800px) {
+    .main-contain {
+        justify-content: center;
+        margin: 0;
+    }
+
+    .card-bg {
+        margin: 0;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .army_logo {
+        height: 4rem;
+    }
+
+    .login-logo {
+        height: 2rem;
+        margin: 0 10px;
+    }
+
+    .card-bg {
+        padding: 40px 30px
+    }
+
+    .form-control, .login-btn {
+        padding: 5px 10px !important;
+    }
+
+    .mb-3 {
+        margin-bottom: .5rem !important;
+    }
+
+    .mt-3 {
+        margin-top: .5rem !important;
+    }
+}
+
+.password-updated {
+    justify-content: center;
+}
+
+.password-updated .alert-success i {
+    font-size: 135px;
+    color: green;
+}
+
+.password-updated .alert-success h3 {
+    color: green;
+}

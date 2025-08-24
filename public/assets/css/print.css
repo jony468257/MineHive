@@ -1,0 +1,25 @@
+[data-table="simpleDataTables"] {
+    border: 1px solid #EAECF0 !important;
+}
+
+[data-table="simpleDataTables"] tr th {
+    background-color: #F9FAFB !important;;
+}
+
+[data-table="simpleReportTable"] {
+    border: 1px solid #EAECF0 !important;
+}
+
+[data-table="simpleReportTable"] tr th {
+    background-color: #F9FAFB !important;
+}
+
+[data-table="simpleReportTable"] thead tr:nth-child(1) th:nth-child(1),
+[data-table="simpleReportTable"] tbody tr td:nth-child(1) {
+    border-left-color: #EAECF0 !important;
+}
+
+[data-table="simpleReportTable"] thead tr:nth-child(1) th:last-child,
+[data-table="simpleReportTable"] tbody tr td:last-child {
+    border-right-color: #EAECF0 !important;;
+}

@@ -1,0 +1,87 @@
+<div class="left-side">
+    <button class="mobile-menu-hide"><i class="arrow-back-ico"></i></button>
+    <div class="logo">
+        <img class="nav-open-logo" src="{{ asset('assets/icons/logo-text.svg') }}" alt="" srcset="">
+    </div>
+    <div class="menu-scroller">
+        <div class="nav-collapse">
+            <div class="collapse-head">
+                <a class="title-tiny-middle text-700" role="button">Menu</a>
+            </div>
+            <div class="collapse-item show">
+                <a href=""
+                    @class(['collapse-item-single title-small', 'active' => Route::is('dashboard')])>
+                    <i class="ni-dashboard"></i><span class="menu-name">Dashboard</span></a>
+                <div class="nav-collapse">
+                    <div
+                        @class(['collapse-head', 'active' => Route::is('users.index') || Route::is('roles.index') || Route::is('users.create') || Route::is('roles.create') || Route::is('users.edit') || Route::is('roles.edit') || Route::is('users.show') ])>
+                        <a class="title-small" role="button">
+                            <i class="ni-person"></i>
+                            <span class="menu-name">Authorization</span>
+                        </a>
+                    </div>
+                    <div
+                        @class(['collapse-item', 'active' => Route::is('roles.index') || Route::is('roles.create') || Route::is('roles.edit') || Route::is('users.index') || Route::is('users.create') || Route::is('users.edit')])>
+                        <a href="{{ route('users.index') }}"
+                            @class(['title-small', 'active' => Route::is('users.index') || Route::is('users.create') || Route::is('users.edit')])>
+                            <span class="sub-menu-name">User</span>
+                        </a>
+                        <a href="{{ route('roles.index') }}"
+                            @class(['title-small', 'active' => Route::is('roles.index') || Route::is('roles.create') || Route::is('roles.edit')])>
+                            <span class="sub-menu-name">Role</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="nav-collapse-separator"/>
+        <div class="nav-collapse">
+            <div class="collapse-head">
+                <a class="title-tiny-middle text-700" role="button">{{ __('messages.apps') }}</a>
+            </div>
+            <div class="collapse-item show">
+                <div class="nav-collapse">
+                    <div class="collapse-head">
+                        <a class="title-small text-500" role="button">
+                            <i class="ni-list-alt"></i>
+                            <span class=" menu-name">Menu Items</span>
+                        </a>
+                    </div>
+                    <div class="collapse-item">
+                        <a href="" class="title-small"><span class="sub-menu-name">Item 1</span></a>
+                        <a href="" class="title-small"><span class="sub-menu-name">Item 2</span></a>
+                    </div>
+                </div>
+                <div class="nav-collapse">
+                    <div class="collapse-head">
+                        <a class="title-small text-500" role="button">
+                            <i class="ni-list-alt"></i>
+                            <span class=" menu-name">Menu Items</span>
+                        </a>
+                    </div>
+                    <div class="collapse-item">
+                        <a href="" class="title-small"><span class="sub-menu-name">Item 1</span></a>
+                        <a href="" class="title-small"><span class="sub-menu-name">Item 2</span></a>
+                        <a href="" class="title-small"><span class="sub-menu-name">Item 3</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="nav-collapse-separator"/>
+        <div class="nav-collapse">
+            <div class="collapse-head">
+                <a class="title-tiny-middle text-700" role="button">Settings</a>
+            </div>
+            <div class="collapse-item show">
+                <a href="" class="collapse-item-single title-small text-500">
+                    <i class="ni-format-color-text"></i>
+                    <span class="menu-name">Parameters</span>
+                </a>
+                <a href="{{ route('feature.theme') }}" @class(['collapse-item-single title-small text-500', 'active' => Route::is('feature.theme')])>
+                    <i class="ni-format-color-fill"></i>
+                    <span class="menu-name">Theme</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

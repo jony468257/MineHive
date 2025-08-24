@@ -1,0 +1,30 @@
+<?php
+
+return [
+    'create_user' => 'Create User',
+    'user_list' => 'Users List',
+    'add_user' => 'Add User',
+    'all_users' => 'All Users',
+    'email' => 'Email',
+    'status' => 'Status',
+    'password' => 'Password',
+    'confirm_password' => 'Confirm Password',
+    'gender' => 'Gender',
+    'assign_roles' => 'Assign Roles',
+    'profile_photo' => 'Profile Photo',
+    'user_details' => 'User Details',
+    'user_info' => 'User Information',
+    'user_type' => 'User Type',
+    'approved' => 'Approved',
+    'data_verification' => 'Data Verification',
+    'pending' => 'Pending',
+    'sl' => '#SL',
+    'name' => 'Name',
+    'address' => 'Address',
+    'phone' => 'Phone',
+    'close' => 'Close',
+    'update' => 'Update',
+    'cancel' => 'Cancel',
+    'action' => 'Action',
+
+];

@@ -1,0 +1,440 @@
+@extends('app')
+@section('title','forms')
+@section('content')
+    <form action="" method="post" enctype="multipart/form-data">
+        @csrf
+        <ul class="nav nav-underline mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item me-2" role="presentation">
+                <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                        data-target="#general-information" next="not"
+                        type="button" role="tab" aria-controls="pills-home"
+                        aria-selected="true">General Info
+                </button>
+            </li>
+            <li class="nav-item me-2" role="presentation">
+                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                        data-target="#parents-details" next="not"
+                        type="button" role="tab" aria-controls="pills-profile"
+                        aria-selected="false">Details
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
+                        data-target="#breeding" next="not"
+                        type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
+                    Full Information
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="general-information" role="tabpanel"
+                 aria-labelledby="pills-home-tab"
+                 tabindex="0">
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label for="lot" class="form-label">{{ __('messages.lot_name') }} <span
+                                class="text-danger">*</span></label>
+                        <select class="form-select requiredField" disabled="disabled"
+                                name="lot_id" id="lot" required>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="breed_id" class="form-label">{{ __('messages.bread_name') }}<span
+                                class="text-danger">*</span></label>
+                        <select class="form-select requiredField" name="breed_id" onChange="changeBreed();"
+                                id="breed_id" required>
+                            <option disabled value="" selected>Breed Name Select</option>
+                            <option value="">Option 1</option>
+                            <option value="">Option 2</option>
+                            <option value="">Option 3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label class="form-label" for="birth_date">{{ __('messages.birth_date') }} <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control custom-date-format requiredField"
+                               name="birth_date" id="birth_date" value="{{ old('birth_date')}}"
+                               placeholder="Pick cattle birth date" required/>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label class="form-label">{{ __('messages.birth_year') }} <span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input type="number"
+                                           class="form-control requiredField"
+                                           id="birth_date_year"
+                                           value="{{old('birth_date')}}" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="birth_date_month" class="form-label">{{ __('messages.month') }} <span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input onkeyup="changeBirthDate()" type="number"
+                                           class="form-control requiredField"
+                                           id="birth_date_month"
+                                           max="12"
+                                           value="{{old('birth_date')}}" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="birth_date_day" class="form-label">{{ __('messages.day') }} <span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input onkeyup="changeBirthDate()" type="number"
+                                           class="form-control requiredField"
+                                           id="birth_date_day"
+                                           value="{{old('birth_date')}}" min="0" max="31">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label for="current_weight" class="form-label">{{ __('messages.current_weight') }}</label>
+                        <input type="number" class="form-control" name="current_weight"
+                               value="{{old('current_weight')}}" id="current_weight">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="teeth" class="form-label">{{ __('messages.teeth') }}</label>
+                        <input type="number" class="form-control" value="{{old('teeth')}}" name="teeth"
+                               id="teeth">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6 d-none" id="p_date">
+                        <div class="form-group">
+                            <label for="purchase_date" class="form-label">{{ __('messages.purchase_date') }}</label>
+                            <input type="text" class="form-control" name="purchase_date"
+                                   id="purchase_date" placeholder="{{ __('messages.purchase_date') }}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-none" id="purchase_rate">
+                        <div class="form-group">
+                            <label for="purchase_rate" class="form-label">{{ __('messages.purchase_rate') }}</label>
+                            <input type="number" min="0" class="form-control" name="purchase_rate"
+                                   id="purchase_rate"
+                                   placeholder="{{ __('messages.purchase_rate') }}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="parents-details" role="tabpanel"
+                 aria-labelledby="pills-profile-tab" tabindex="0">
+
+            </div>
+            <div class="tab-pane fade" id="breeding" role="tabpanel"
+                 aria-labelledby="pills-contact-tab" tabindex="0">
+            </div>
+        </div>
+    </form>
+
+    <script>
+        $("#birth_date").datepicker({
+            autoHide: true,
+            endDate: "today",
+            format: 'dd-mm-yyyy',
+        });
+
+        $("#m_id").select2({
+            dropdownParent: $(".createModal")
+        });
+        $("#calf_id").select2({
+            dropdownParent: $('.createModal'),
+
+        });
+        // Get tag list for dropdown with pagination
+        $(".cattle_tag_id").select2({
+            dropdownParent: $('.createModal'),
+            placeholder: 'Tag IDs...',
+            allowClear: true,
+            ajax: {
+                url: '/system/cattles/tagIdforselect2',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        term: params.term || '',
+                        page: params.page || 1
+                    }
+                },
+                cache: true
+            }
+        });
+        $('#birth_date').change(function () {
+            const date = $('#birth_date').val();
+            const [day, month, year] = date.split("-");
+            const formattedDate = `${year}-${month}-${day}`;
+            const age = getAgeFromDate(formattedDate);
+
+            $('#birth_date_year').val(age.years);
+            $('#birth_date_month').val(age.months);
+            $('#birth_date_day').val(age.days);
+
+            //set cattle status
+            setCattleStatus();
+        });
+        $("#birth_date_year, #birth_date_month, #birth_date_day").change(function () {
+            var year = $("#birth_date_year").val();
+            var month = $("#birth_date_month").val();
+            var day = $("#birth_date_day").val();
+            const birthDate = getDateFromAge(year, month, day);
+            var formattedDate = `${birthDate.getDate()}-${birthDate.getMonth() + 1}-${birthDate.getFullYear()}`;
+            $("#birth_date").val(formattedDate);
+
+            //set cattle status
+            setCattleStatus();
+        });
+
+
+        $('#farm').change(function () {
+            var farm_id = $(this).val();
+            if (farm_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{url('system/milk-production/get-herd-list')}}?farm_id=" + farm_id,
+                    success: function (res) {
+                        if (res) {
+                            $('#herd').prop("disabled", false);
+                            $("#herd").empty().append('<option>Select Herd</option>');
+                            $.each(res, function (key) {
+                                $("#herd").append('<option value="' + res[key].id + '">' + res[key].name + '</option>');
+                            });
+
+                        } else {
+                            $("#herd").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#herd").empty();
+                $("#lot").empty();
+            }
+        });
+        $('#herd').on('change', function () {
+            var lot_id = $(this).val();
+            if (lot_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{url('system/milk-production/get-lot-list')}}?lot_id=" + lot_id,
+                    success: function (res) {
+                        if (res) {
+                            $('#lot').prop("disabled", false);
+                            $("#lot").empty().append('<option>Select Lot</option>');
+                            $.each(res, function (key, value) {
+                                $("#lot").append('<option value="' + res[key].id + '">' + res[key].name + '</option>');
+                            });
+
+                        } else {
+                            $("#lot").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#lot").empty();
+            }
+        });
+
+        function getAgeFromDate(dateString) {
+            const today = new Date();
+            const birthDate = new Date(dateString);
+            let ageYears = today.getFullYear() - birthDate.getFullYear();
+            let ageMonths = today.getMonth() - birthDate.getMonth();
+            let ageDays = today.getDate() - birthDate.getDate();
+
+            if (ageDays < 0) {
+                ageMonths--;
+                ageDays += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+            }
+
+            if (ageMonths < 0) {
+                ageYears--;
+                ageMonths += 12;
+            }
+
+            return {
+                years: ageYears,
+                months: ageMonths,
+                days: ageDays
+            };
+        }
+
+        function getDateFromAge(years, months, days) {
+            const today = new Date();
+            let birthDate = new Date(today);
+
+            birthDate.setFullYear(today.getFullYear() - years);
+            birthDate.setMonth(today.getMonth() - months);
+            birthDate.setDate(today.getDate() - days);
+
+            if (birthDate.getDate() > today.getDate()) {
+                birthDate.setMonth(birthDate.getMonth() - 1);
+                birthDate.setDate(birthDate.getDate() + new Date(birthDate.getFullYear(), birthDate.getMonth() + 1, 0).getDate());
+            }
+
+            if (birthDate.getMonth() > today.getMonth()) {
+                birthDate.setFullYear(birthDate.getFullYear() - 1);
+                birthDate.setMonth(birthDate.getMonth() + 12);
+            }
+
+            return birthDate;
+        }
+
+        $('#source').change(function () {
+            let source = $(this).val();
+            if (source === 'purchased') {
+                $('#book_value_section').addClass('d-none');
+            } else {
+                $('#book_value_section').removeClass('d-none');
+            }
+        });
+        $("#book_date").datepicker({
+            autoHide: true,
+            endDate: "today",
+            format: 'dd-mm-yyyy',
+        });
+
+        $('#cattle_sex').change(function () {
+            //set cattle status
+            setCattleStatus();
+        });
+
+        //set cattle status
+        function setCattleStatus() {
+            var sex = $('#cattle_sex').val();
+            var birth_date = $('#birth_date').val();
+            $.ajax({
+                type: "GET",
+                url: "{{url('system/cattles/get-cattle-status')}}?sex=" + sex + "&birthdate=" + birth_date,
+                success: function (res) {
+                    if (res.data.length > 1) {
+                        $("#cattlestatus").empty().append('<option>Select status</option>');
+                        $.each(res.data, function (key, value) {
+                            $("#cattlestatus").append('<option value="' + value.key + '">' + value.value + '</option>');
+                        });
+                    } else if (res.data.length == 1) {
+                        $("#cattlestatus").empty().append('<option value="' + res.data[0].key + '">' + res.data[0].value + '</option>');
+                    } else {
+                        $("#cattlestatus").empty();
+                    }
+                }
+            });
+        }
+
+        $('#is_calf').change(function () {
+            if ($(this).prop('checked')) {
+                // Checkbox is checked
+                $('#animal_no_div').addClass('d-none');
+                $('#calf_id_div').removeClass('d-none');
+            } else {
+                // Checkbox is unchecked
+                $('#animal_no_div').removeClass('d-none');
+                $('#calf_id_div').addClass('d-none');
+            }
+        });
+
+        //     Auto
+        $('#tag_id_create').change(function () {
+            let tag_id = $(this).val();
+            let tagTitle = $(this).children('option:selected').text();
+            // console.log(tagTitle)
+            let words = tagTitle.split(/\s/).join('');
+            // Take the first 4 words (or fewer if there aren't enough words)
+            let firstFourWords = words.slice(0, 3);
+            if (firstFourWords === "DAM") {
+                let cattle_sex = $('#cattle_sex').val();
+                let birth_date = $('#birth_date').val();
+                let birth_weight = $('#birth_weight').val();
+                $.ajax({
+                    type: "GET",
+                    url: "{{url('system/cattles/dam-wise-cattle-info')}}?tag_id=" + tagTitle.split('(')[0],
+                    success: function (res) {
+                        if (res) {
+                            function formatDate(dateString) {
+                                const date = new Date(dateString); // Create a Date object from the input string
+                                const day = String(date.getDate()).padStart(2, '0'); // Get day with leading zero if needed
+                                const month = String(date.getMonth() + 1).padStart(2, '0'); // Get month with leading zero, +1 because months are 0-indexed
+                                const year = date.getFullYear(); // Get the year
+                                return `${day}-${month}-${year}`; // Return the formatted date string
+                            }
+
+                            let bdate = formatDate(res.data.calving_date);
+
+                            // value assign and make disabled
+                            $('#cattle_sex').val(res.data.calf_sex);
+                            $('#birth_date').val(bdate).trigger('change');
+                            $('#birth_weight').val(res.data.birth_weight);
+                            $('#animal_no').val('DAM-' + tagTitle.match(/\((\d+)\)/)[1]);
+                            $('#m_id').val(res.data.cattle_id).trigger('change');
+
+                            // make disabled
+                            $('#cattle_sex').prop('disabled', true);
+                            $('#birth_date').prop('disabled', true);
+                            $('#birth_date_year').prop('readonly', true);
+                            $('#birth_date_month').prop('readonly', true);
+                            $('#birth_date_day').prop('readonly', true);
+                            $('#birth_weight').prop('readonly', true);
+                            $('#animal_no').prop('readonly', true);
+                            $('#m_id').prop('disabled', true);
+
+                            //add fields in form
+                            $('<input>').attr({
+                                type: 'hidden',
+                                name: 'h_sex',
+                                value: res.data.calf_sex
+                            }).appendTo('form');
+                            $('<input>').attr({
+                                type: 'hidden',
+                                name: 'h_birth_date',
+                                value: bdate
+                            }).appendTo('form');
+                            $('<input>').attr({
+                                type: 'hidden',
+                                name: 'h_mother_id',
+                                value: res.data.cattle_id
+                            }).appendTo('form');
+
+                        } else {
+                            // $("#lot").empty();
+                        }
+                    }
+                });
+
+                // tagTitle = $(this).text('');
+            } else {
+                console.log("not found");
+                $('#cattle_sex').val('');
+                $('#birth_date').val('').trigger('change');
+                $('#birth_weight').val('');
+                $('#animal_no').val('');
+                $('#m_id').val('').trigger('change');
+                // make enable
+                $('#cattle_sex').prop('disabled', false);
+                $('#birth_date').prop('disabled', false);
+                $('#birth_date_year').prop('readonly', false);
+                $('#birth_date_month').prop('readonly', false);
+                $('#birth_date_day').prop('readonly', false);
+                $('#birth_weight').prop('readonly', false);
+                $('#animal_no').prop('readonly', false);
+                $('#m_id').prop('disabled', false);
+
+                //remove fields in form
+                $('input[name="h_sex"]').remove();
+                $('input[name="h_birth_date"]').remove();
+                $('input[name="h_mother_id"]').remove();
+            }
+        });
+
+
+    </script>
+    <script src="{{asset('assets/js/cattle.min.js')}}"></script>
+
+@endsection

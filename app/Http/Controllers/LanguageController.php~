@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+
+class LanguageController extends Controller
+{
+    /**
+     * @param Request $request
+     * @return int
+     */
+    public function change(Request $request): int
+    {
+        Session::put('locale', $request->len);
+//        $path = base_path('.env');
+//        $key = 'APP_LOCALE';
+//
+//        if (file_exists($path)) {
+//            file_put_contents(
+//                $path,
+//                preg_replace(
+//                    "/^{$key}=.*/m",
+//                    "{$key}={$request->len}",
+//                    file_get_contents($path)
+//                )
+//            );
+//        }
+        return 1;
+    }
+}

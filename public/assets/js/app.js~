@@ -1,0 +1,305 @@
+let table = $('[data-table="dataTables"]').DataTable({
+    dom: 'Bfrtip', buttons: [{
+        extend: 'copy', text: '<i class="ni-content-copy"></i> Copy', className: 'dataBtn'
+    }, {
+        extend: 'excel', text: 'Excel', className: 'dataBtn'
+    }, {
+        extend: 'pdf', text: 'PDF', className: 'dataBtn borders'
+    }, {
+        extend: 'colvis',
+        text: '<i class="ni-remove-red-eye"></i>',
+        className: 'dataBtn ms-1 right_r row-selection-button'
+    },], responsive: true, rowReorder: {
+        selector: 'td:nth-child(2)'
+    }, oLanguage: {"sSearch": ""},
+});
+
+let AjaxTable = $('#datatable-ajax');
+let $extends = $('[data-extend="columns"]').html();
+
+if (AjaxTable.length > 0) {
+
+    let filterData = {}, filter = false, searchDi;
+
+    $('.filter-form').on('submit', (e) => {
+        e.preventDefault();
+        filterData = new FormData(e.target);
+        filter = true;
+        t.ajax.reload();
+    });
+
+    let dataUrl = AjaxTable.data('url') ?? 'data-table/get-data', ColumnData = AjaxTable.data('column'),
+        jsonString = ColumnData.replace(/'/g, '"'), ColumnArray = JSON.parse(jsonString), Columns = [], AjaxColumn = [];
+
+    let render = [];
+
+    $.each(ColumnArray, function (index, value) {
+        let order = !value.includes('.');
+        if (value.includes('@')) {
+            let parts = value.split('@');
+            value = parts[0];
+            render.push({
+                render: function (data, type, row) {
+                    let p = parts[1].split('.'),
+                        d = p.length === 2 ? row[p[0]][p[1]] : row[p[0]]
+                    return `${data} (${d})`;
+                }, targets: [index]
+            })
+            AjaxColumn.push(parts[1]);
+        }
+
+        if (value.includes('$')) {
+            let parts = value.split('$');
+            value = parts[0];
+
+            render.push({
+                render: function (data, type, row) {
+                    let date = data ? new Date(data) : null;
+                    if (parts[1] === 'age' && date) {
+                        let def = new Date() - date, totalDays = Math.floor(def / (1000 * 60 * 60 * 24)),
+                            years = Math.floor(totalDays / 365), months = Math.floor((totalDays % 365) / 30),
+                            days = Math.floor((totalDays % 365) % 30);
+                        return `${years}Y, ${months}M, ${days}D`;
+                    } else {
+                        if (date) {
+                            let format = parts[1];
+
+                            let day = String(date.getDate()).padStart(2, '0');
+                            let month = String(date.getMonth() + 1).padStart(2, '0');
+                            let year = date.getFullYear();
+
+                            let data = {
+                                d: day, m: month, y: year
+                            };
+
+                            let expression = new RegExp(Object.keys(data).join("|"), "gi");
+
+                            value = format.replace(expression, function (matched) {
+                                return data[matched];
+                            });
+                            return value;
+                        }
+                        return 'N/A';
+                    }
+                }, targets: [index]
+            })
+        }
+        Columns.push({data: value, orderable: order});
+        AjaxColumn.push(value);
+    })
+
+    render.push({
+        targets: [Columns.length], data: 'id', render: function (data, type, full) {
+            return $extends ? $extends.replace(/data@id/g, data) : '';
+        }
+    })
+
+    let t = $(AjaxTable).DataTable({
+        dom: 'Bfrtip', buttons: [
+            {extend: 'copy', text: '<i class="ni-content-copy"></i> Copy', className: 'dataBtn'},
+            {extend: 'excel', text: 'Excel', className: 'dataBtn'},
+            {extend: 'pdf', text: 'PDF', className: 'dataBtn borders'},
+            {
+                extend: 'colvis',
+                text: '<i class="ni-remove-red-eye"></i>',
+                className: 'dataBtn ms-1 right_r row-selection-button'
+            }
+        ], responsive: true, rowReorder: {
+            selector: 'td:nth-child(2)'
+        }, searchDelay: 1000, oLanguage: {"sSearch": ""}, processing: true, serverSide: true, ajax: {
+            url: dataUrl, type: 'GET', dataSrc: 'data', data: function (d) {
+                d.columns = AjaxColumn;
+                if (filter) {
+                    filterData.forEach((value, key) => {
+                        d[key] = value;
+                    });
+                }
+            },
+        }, pageLength: 10, columns: Columns,
+
+        columnDefs: render,
+    });
+
+    $('#' + t.table().container().id + ' .dataTables_filter input').on('keyup', function (event) {
+        let input = this.value;
+        const dpf = /^(\d{2})-(\d{2})-(\d{4})$/,
+            matchF = input.match(dpf);
+        const dpm = /^(\d{2})-(\d{2})$/,
+            matchM = input.match(dpm);
+
+        if (matchF) {
+            let day = matchF[1], month = matchF[2], year = matchF[3];
+            input = `${year}-${month}-${day}`;
+        }
+
+        if (matchM) {
+            let day = matchM[1], month = matchM[2];
+            const year = new Date().getFullYear();
+            input = `${year}-${month}-${day}`;
+        }
+
+        clearTimeout(searchDi);
+        searchDi = setTimeout(() => {
+            t.search(input).draw();
+        }, 1000);
+    });
+
+    t.on('order.dt search.dt', function () {
+        t.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+        });
+    }).draw();
+
+    t.on('draw', function () {
+        let target = $('[data-rewrite]');
+        target.each(function (i, tdr) {
+            let cn = $(tdr).index() + 1, rwv = $(tdr).data('rewrite');
+            let te = $(`tbody tr td:nth-child(${cn})`);
+
+            te.each(function (index, element) {
+                let bc = 'badge-soft-info';
+                let value = $(element).text();
+                if (['status'].includes(rwv)) {
+                    bc = 'badge-soft-success';
+                }
+                if (['pd'].includes(rwv) && value === 'empty') {
+                    bc = 'badge-soft-danger';
+                }
+                if (['type'].includes(rwv)) {
+                    if (value === 'abnormal')
+                        bc = 'badge-soft-warning';
+                    if (value === 'dead')
+                        bc = 'badge-soft-danger';
+                    if (value === 'normal')
+                        bc = 'badge-soft-success';
+                }
+
+                if (['sex'].includes(rwv) && value === 'male') {
+                    bc = 'badge-soft-success';
+                }
+
+                $(element).html(`<span class="badge badge-pill ${bc} font-size-11">${value}</span>`);
+            })
+        })
+    });
+
+    $(document).on('click', '#datatable-ajax .sorting', function () {
+        dataTableShortingIcon(t);
+    })
+}
+
+$('[type=search]').each(function () {
+    $(this).attr('placeholder', ' Search...');
+});
+
+let hidden = $('.add-new-button-hidden'),
+    addButton = hidden.html();
+hidden.remove();
+$('.dataTables_filter').append(addButton);
+let tableHeader = $('tr .sorting');
+
+if (table.order() !== undefined)
+    dataTableShortingIcon(table);
+
+function dataTableShortingIcon(table) {
+    let si = table.order()[0][1] === 'asc' ? 'ni-keyboard-double-arrow-down' : 'ni-keyboard-double-arrow-up';
+    tableHeader.each(function (index, element) {
+        if ($(element).text().toLowerCase() !== 'action') {
+            const icon = `<i class="${si}"></i>`;
+            let content = $(element).text();
+            $(element).html('<div class="data-tables-header-sorting">' + content + icon + '</div>');
+        }
+    });
+}
+
+$(document).on('click', '[data-table="dataTables"] .sorting', function () {
+    dataTableShortingIcon(table);
+})
+
+function deletePost(id) {
+    swal({
+        title: 'Are you sure?',
+        text: `You won't be able to revert this!`,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        confirmButtonClass: 'btn btn-danger ms-2',
+        cancelButtonClass: 'btn btn-success',
+        buttonsStyling: false,
+        reverseButtons: true
+    }).then((result) => {
+        if (result.value) {
+            event.preventDefault();
+            document.getElementById('delete-form-' + id).submit();
+        }
+    })
+}
+
+$('.permission-list-badge').each(function () {
+    const text = $(this).text().toLowerCase();
+    const permissionClasses = {
+        'delete': 'for-delete',
+        'edit': 'for-edit',
+        'view': 'for-view',
+        'list': 'for-list',
+        'create': 'for-create',
+        'show': 'for-create'
+    };
+
+    let assignedClass = 'for-list';
+    for (let key in permissionClasses) {
+        if (text.includes(key)) {
+            assignedClass = permissionClasses[key];
+            break;
+        }
+    }
+
+    $(this).addClass(assignedClass);
+});
+
+$(document).ready(function () {
+    $('.custom-date-format').datepicker({
+        autoHide: true,
+        format: 'dd-mm-yyyy'
+    });
+});
+
+function printData(divName) {
+    let content = $("." + divName);
+    content.print();
+    content.close();
+}
+
+
+$(document).on('submit', 'form:not(.filter-form)', function () {
+    let submitButton = $(this).find('button[type="submit"], input[type="submit"]');
+    $(submitButton).prop('disabled', true).prepend('<div class="spinner-border text-white submit-button-spinner" role="status">\n' + '<span class="visually-hidden">Loading...</span>\n' + '</div>');
+});
+
+$(document).on('focus', 'input[type="number"]', function () {
+    $(this).attr({'min': 0});
+})
+
+$('.pre-loader').css('display', 'none');
+let interval = setInterval(function () {
+    let body = $('body[data-sidebar="dark"]');
+    if ($(body).css('top') === '40px') {
+        $(body).css('margin-top', '-' + $(body).css('top'))
+        clearInterval(interval);
+    }
+    $('#google_translate_element').empty();
+    $('.goog-te-combo').addClass('form-select');
+}, 500)
+
+$(document).on('change', 'input[type="file"][data-preview]', function () {
+    const reader = new FileReader(),
+        thisEle = $(this);
+    reader.readAsDataURL(this.files[0]);
+    reader.onload = function (event) {
+        let source = event.target.result;
+        $($(thisEle).data('preview')).attr('src', `${source}`);
+    }
+})

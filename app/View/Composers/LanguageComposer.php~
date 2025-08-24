@@ -1,0 +1,31 @@
+<?php
+
+namespace App\View\Composers;
+
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
+
+
+class LanguageComposer
+{
+    public function compose(View $view): void
+    {
+        $locale = Session::get('locale', 'en');
+        App::setLocale($locale);
+        $font = App::getLocale() === 'bn' ? asset('assets/fonts/solaiman-lipi/solaimanlipi.woff') : asset('assets/fonts/mulish/Mulish-Regular.woff');
+        $fontEn = asset('assets/fonts/mulish/Mulish-Regular.woff');
+        $css = "<style>
+            @font-face {
+            font-family: 'bangla-font';
+            font-style: normal;
+            font-weight: normal;
+            src: local('SolaimanLipiNormal'), url($font) format('woff');
+        }
+        *{
+            font-family: bangla-font,serif;
+        }</style>";
+
+        $view->with('dynamicStyle', $css);
+    }
+}

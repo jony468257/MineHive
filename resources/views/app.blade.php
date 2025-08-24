@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
+<head>
+    <meta charset="utf-8"/>
+    <title> @yield('title') | {{ __('texts.app_name') }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <x-partials.styles :css="$dynamicStyle"/>
+</head>
+
+<body data-sidebar="dark">
+<x-partials.preloader/>
+<div class="container-fluid">
+    <x-partials.header/>
+    <div class="row">
+        <x-partials.sidebar/>
+        <div class="right-side">
+            <div class="main-padding">
+                <div class="col-md-12">
+                    @yield('content')
+                </div>
+            </div>
+            <x-partials.footer/>
+        </div>
+    </div>
+</div>
+<x-partials.scripts/>
+<x-partials.alerts/>
+</body>
+</html>
+

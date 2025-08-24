@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 187.82 187.82">
+    <defs>
+        <style>.cls-1{fill:#e3ffb6;}.cls-2{fill:#5bb318;}</style>
+    </defs>
+    <g id="Layer_2">
+        <g id="Layer_1-2">
+            <circle class="cls-1" cx="93.91" cy="93.91" r="93.91"/>
+            <polygon class="cls-2"
+                     points="93.91 96.32 37.35 39.76 37.35 75.11 76.24 114 93.91 131.67 111.59 114 150.47 75.11 150.47 39.76 93.91 96.32"/>
+            <polygon class="cls-2" points="62.35 148.06 37.35 148.06 37.35 88.37 62.35 113.38 62.35 148.06"/>
+            <polygon class="cls-2" points="125.47 148.06 150.47 148.06 150.47 88.37 125.47 113.38 125.47 148.06"/>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Helper;
+
+use Spatie\Permission\Models\Permission;
+
+class AuthorizationHelper
+{
+    /**
+     * @return mixed
+     */
+    public static function getPermissionGroup(): mixed
+    {
+        return Permission::groupBy('group_name')->orderBy('id', 'asc')->pluck('group_name');
+    }
+
+    /**
+     * @param $group_name
+     * @return mixed
+     */
+    public static function getGroupPermissions($group_name): mixed
+    {
+        return Permission::where('group_name', $group_name)->get('name', 'id', 'group_name');
+    }
+
+    /**
+     * @param $role
+     * @param $permissions
+     * @return bool
+     */
+    public static function roleHasPermissions($role, $permissions): bool
+    {
+        foreach ($permissions as $permission) {
+            if ($role->hasPermissionTo($permission->name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}

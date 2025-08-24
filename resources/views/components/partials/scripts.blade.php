@@ -1,0 +1,46 @@
+{{--jQuery v3.7--}}
+<script src="{{asset('assets/lib/jquery/jquery@3.7.0_dist_jquery.min.js')}}"></script>
+{{--collapse JS--}}
+<script src="{{asset('assets/js/collapse.js')}}"></script>
+{{--bootstrap v5.3.1--}}
+<script src="{{asset('assets/lib/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js')}}"></script>
+<!-- DatePicker -->
+<script src="{{ asset('assets/lib/datepicker/datepicker.min.js')}}"></script>
+{{--axios--}}
+<script src="{{asset('assets/lib/axios/axios_dist_axios.min.js')}}"></script>
+{{--jszip--}}
+<script src="{{ asset('assets/lib/jszip/jszip.min.js')}}"></script>
+{{--pdfmake--}}
+<script src="{{asset('assets/lib/datatables/pdfmake_0.2.7_pdfmake.min.js')}}"></script>
+<script src="{{asset('assets/lib/datatables/pdfmake_0.2.7_vfs_fonts.js')}}"></script>
+<script src="{{ asset('assets/lib/sweetalert2/sweetalert2.all.js') }}"></script>
+{{--data tables--}}
+<script src="{{asset('assets/lib/datatables/datatables.min.js')}}"></script>
+
+{{--select2 JS--}}
+<script src="{{asset('assets/lib/select2/select2.full.min.js')}}"></script>
+{{--select2 init JS--}}
+<script src="{{asset('assets/js/select2.init.js')}}"></script>
+{{--xlsx Js--}}
+<script src="{{asset('assets/lib/xlsx/xlsx.full.min.js')}}"></script>
+{{--custom Js--}}
+<script src="{{asset('assets/js/app.js')}}"></script>
+{{--on page JS--}}
+<script src="{{asset('assets/lib/toaster/toastr.min.js')}}"></script>
+{{--print screen--}}
+<script src="{{asset('assets/lib/jQuery-print/jQuery.print.min.js')}}"></script>
+@stack('scripts')
+
+<script>
+    $('.language-selection').change(function () {
+        let len = $(this).val();
+        axios.put('{{ route('language.change') }}', {
+            len: len
+        }).then((response) => {
+            if(response.data === 1){
+                location.reload();
+            }
+            console.log(response.data)
+        })
+    })
+</script>

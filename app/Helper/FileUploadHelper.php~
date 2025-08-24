@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Helper;
+
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Encoders\WebpEncoder;
+use Intervention\Image\ImageManager;
+
+class FileUploadHelper
+{
+    /**
+     * @param $file
+     * @param $width
+     * @param $height
+     * @param $folderName
+     * @param null $fileName
+     * @param string $ope
+     * @param int $x
+     * @param int $y
+     * @return string
+     */
+    public static function imageCustomization($file, $width, $height, $folderName, string $ope = 'resize', $fileName = null, int $x = 0, int $y = 0): string
+    {
+        /**
+         * make unique name
+         */
+        $imageName = $folderName . '_' . $fileName . '_' . time() . '.' . 'webp';
+
+        /**
+         * folder existence check
+         * if folder not found then automatically create a folder
+         */
+        if (!Storage::disk('public')->exists($folderName)) {
+            Storage::disk('public')->makeDirectory($folderName);
+        }
+
+        /**
+         * resize with custom height width
+         */
+        try {
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($file);
+            if ($ope === 'crop') {
+                $image->crop($width, $height, $x, $y);
+            }
+            if ($ope === 'resize') {
+                $image->resize($width, $height);
+            }
+            $image->encode(new WebpEncoder(quality: 65));
+            $image->save(storage_path('app/public/' . $folderName . '/' . $imageName));
+            return $folderName . '/' . $imageName;
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
+}
