@@ -5,7 +5,7 @@
     <div class="row main-contain">
         <div class="card card-bg">
             <div class="d-flex justify-content-center align-items-center">
-                <img class="login-logo" src="{{ asset('assets/icons/mimba_full_logo.svg') }}" alt="logo">
+                <img class="login-logo" src="{{ asset('assets/image/logo.svg') }}" alt="logo">
             </div>
             <div class="d-flex justify-content-between align-items-center mt-3">
                 <div class="text_border"></div>

@@ -14,7 +14,7 @@ html {
 
 .card {
     background-color: $contentBox;
-
+ 
     .dataTables_wrapper {
         .dataTable {
             [class^="ni-"], [class*=" ni-"] {
@@ -28,7 +28,7 @@ html {
 
 
                     a {
-                        border: none;
+                        border: none; 
 
                         i {
                             transition: all .2s ease;

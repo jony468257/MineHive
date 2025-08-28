@@ -15,12 +15,20 @@ class Authorization extends Seeder
      */
     public function run(): void
     {
-        $admin = User::create([
-            'name' => 'Super Admin',
-            'email' => 'admin@gmail.com',
-            'phone' => '01716342698',
-            'password' => Hash::make('password'),
-        ]);
+            $admin = User::updateOrCreate(
+            ['email' => 'admin@gmail.com'],
+            [
+                'name' => 'Super Admin',
+                'phone' => '01716342698',
+                'password' => Hash::make('password'),
+            ]
+        );
+        // $admin = User::create([
+        //     'name' => 'Super Admin',
+        //     'email' => 'admin@gmail.com',
+        //     'phone' => '01716342698',
+        //     'password' => Hash::make('password'),
+        // ]);
 
         $role = Role::create(['name' => 'super-admin']);
         Role::create(['name' => 'farm-admin']);
