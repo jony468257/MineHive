@@ -111,10 +111,12 @@
 
             <div class="collapse-item show">
                 <div class="nav-collapse mt-2">
-                    <div class="collapse-head">Menu Group 1</div>
+                    <div class="collapse-head">Home</div>
                     <div class="collapse-item">
-                        <a href="#"><span class="sub-menu-name">Item 1</span></a>
-                        <a href="#"><span class="sub-menu-name">Item 2</span></a>
+                        <a href="{{ route('sliders.index') }}"><span class="sub-menu-name">Slider</span></a>
+                        <a href="{{ route('news.index') }}"><span class="sub-menu-name">News</span></a>
+                         <a href="{{ route('consultancy.index') }}"><span class="sub-menu-name">Consultancy</span></a>
+                        <a href="{{ route('blogs.index') }}"><span class="sub-menu-name">Blog</span></a>
                     </div>
                 </div>
 
