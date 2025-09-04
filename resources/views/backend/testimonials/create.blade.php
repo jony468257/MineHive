@@ -1,20 +1,20 @@
  @extends('app')
-@section('title','Edit Slider Image')
+@section('title','Add Testimonial')
 @section('content')
 
 <style>
     body {
-        background-color: #121212;
+        background-color: #121212; /* Dark background */
         color: #fff;
     }
 
-    .container-dark {
-        background-color: #1e1e1e;
+    .container {
+        background-color: #1e1e1e; /* Dark container */
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-        max-width: 600px;
-        margin: 50px auto; /* Center horizontally */
+        max-width: 700px;
+        margin-top: 50px;
     }
 
     h2 {
@@ -29,35 +29,36 @@
         font-weight: 500;
     }
 
-    input.form-control {
+    input.form-control,
+    textarea.form-control {
         background-color: #2c2c2c;
         color: #fff;
         border: 1px solid #ff4d4d;
     }
 
-    input.form-control:focus {
+    input.form-control:focus,
+    textarea.form-control:focus {
         border-color: #ff0000;
         box-shadow: 0 0 5px #ff0000;
         background-color: #2c2c2c;
         color: #fff;
     }
 
-    .btn-primary {
+    .btn-success {
         background-color: #28a745;
         border: none;
-        width: 100%;
+        color: #fff;
     }
 
-    .btn-primary:hover {
+    .btn-success:hover {
         background-color: #218838;
+        color: #fff;
     }
 
     .btn-secondary {
         background-color: #6c757d;
         border: none;
         color: #fff;
-        width: 100%;
-        margin-top: 10px;
     }
 
     .btn-secondary:hover {
@@ -70,18 +71,10 @@
         border-color: #ff4d4d;
         color: #ff4d4d;
     }
-
-    img.img-preview {
-        border-radius: 10px;
-        margin-top: 10px;
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-    }
 </style>
 
-<div class="container-dark">
-    <h2>Edit Slider Image</h2>
+<div class="container">
+    <h2>Add New Testimonial</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -93,25 +86,27 @@
         </div>
     @endif
 
-    <form action="{{ route('sliders.update', $slider->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('testimonials.store') }}" method="POST">
         @csrf
-        @method('PUT')
-
         <div class="mb-3">
-            <label class="form-label">Title (optional)</label>
-            <input type="text" name="title" class="form-control" value="{{ $slider->title }}">
+            <label class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Slider Image</label>
-            <input type="file" name="image" class="form-control">
-            @if($slider->image)
-                <img src="{{ asset('storage/' . $slider->image) }}" alt="Current Slide" class="img-preview">
-            @endif
+            <label class="form-label">YouTube Video URL</label>
+            <input type="url" name="video_url" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Update Slide</button>
-        <a href="{{ route('sliders.index') }}" class="btn btn-secondary">Back</a>
+        <div class="mb-3">
+            <label class="form-label">Client Name (optional)</label>
+            <input type="text" name="client_name" class="form-control">
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-success">Add Testimonial</button>
+            <a href="{{ route('testimonials.index') }}" class="btn btn-secondary">Back</a>
+        </div>
     </form>
 </div>
 

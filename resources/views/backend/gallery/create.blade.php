@@ -1,20 +1,20 @@
  @extends('app')
-@section('title','Add Slider Image')
+@section('title','Add Gallery Image')
 @section('content')
 
 <style>
     body {
-        background-color: #121212;
+        background-color: #121212; /* Dark background */
         color: #fff;
     }
 
-    .container-dark {
-        background-color: #1e1e1e;
+    .container {
+        background-color: #1e1e1e; /* Dark container */
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-        max-width: 600px; /* Container width */
-        margin: 50px auto; /* Center horizontally */
+        max-width: 700px;
+        margin-top: 50px;
     }
 
     h2 {
@@ -29,13 +29,15 @@
         font-weight: 500;
     }
 
-    input.form-control {
+    input.form-control,
+    textarea.form-control {
         background-color: #2c2c2c;
         color: #fff;
         border: 1px solid #ff4d4d;
     }
 
-    input.form-control:focus {
+    input.form-control:focus,
+    textarea.form-control:focus {
         border-color: #ff0000;
         box-shadow: 0 0 5px #ff0000;
         background-color: #2c2c2c;
@@ -45,19 +47,18 @@
     .btn-success {
         background-color: #28a745;
         border: none;
-        width: 100%;
+        color: #fff;
     }
 
     .btn-success:hover {
         background-color: #218838;
+        color: #fff;
     }
 
     .btn-secondary {
         background-color: #6c757d;
         border: none;
         color: #fff;
-        width: 100%;
-        margin-top: 10px;
     }
 
     .btn-secondary:hover {
@@ -72,31 +73,35 @@
     }
 </style>
 
-<div class="container-dark">
-    <h2>Add New Slider Image</h2>
+<div class="container">
+    <h2>Add New Image</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
-            <ul class="mb-0">
-                @foreach($errors->all() as $error)
+            <strong>Whoops!</strong> Please fix the following issues:<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
     @endif
 
-    <form action="{{ route('sliders.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('gallery.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+
         <div class="mb-3">
-            <label class="form-label">Title (optional)</label>
-            <input type="text" name="title" class="form-control">
+            <label for="title" class="form-label">Title (optional)</label>
+            <input type="text" name="title" id="title" class="form-control">
         </div>
+
         <div class="mb-3">
-            <label class="form-label">Slider Image</label>
-            <input type="file" name="image" class="form-control" required>
+            <label for="image" class="form-label">Image</label>
+            <input type="file" name="image" id="image" class="form-control" required>
         </div>
-        <button type="submit" class="btn btn-success">Add Slide</button>
-        <a href="{{ route('sliders.index') }}" class="btn btn-secondary">Back</a>
+
+        <button type="submit" class="btn btn-success w-100 mb-2">Add Image</button>
+        <a href="{{ route('gallery.index') }}" class="btn btn-secondary w-100">Back</a>
     </form>
 </div>
 

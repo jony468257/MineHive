@@ -1,6 +1,5 @@
  @extends('app')
-@section('title','Edit Blog')
-
+@section('title','Edit Testimonial')
 @section('content')
 
 <style>
@@ -10,7 +9,7 @@
     }
 
     .container {
-        background-color: #1e1e1e; /* Slightly lighter dark container */
+        background-color: #1e1e1e; /* Dark container */
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
@@ -18,8 +17,15 @@
         margin-top: 50px;
     }
 
+    h2 {
+        color: #ff4d4d;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
     .form-label {
-        color: #ff4d4d; /* Red labels */
+        color: #ff4d4d;
         font-weight: 500;
     }
 
@@ -41,10 +47,23 @@
     .btn-primary {
         background-color: #ff4d4d;
         border: none;
+        color: #fff;
     }
 
     .btn-primary:hover {
         background-color: #ff0000;
+        color: #fff;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        color: #fff;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        color: #fff;
     }
 
     .alert-danger {
@@ -52,19 +71,12 @@
         border-color: #ff4d4d;
         color: #ff4d4d;
     }
-
-    h2 {
-        color: #ff4d4d;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 30px;
-    }
 </style>
 
-<div class="container mt-4">
-    <h2>Edit Blog</h2>
+<div class="container">
+    <h2>Edit Testimonial</h2>
 
-    @if($errors->any())
+    @if ($errors->any())
         <div class="alert alert-danger">
             <ul class="mb-0">
                 @foreach($errors->all() as $error)
@@ -74,35 +86,29 @@
         </div>
     @endif
 
-    <form action="{{ route('blogs.update', $blog->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('testimonials.update', $testimonial->id) }}" method="POST">
         @csrf
         @method('PUT')
 
         <div class="mb-3">
-            <label for="title" class="form-label">Blog Title</label>
-            <input type="text" class="form-control" name="title" value="{{ $blog->title }}" required>
+            <label class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" value="{{ $testimonial->title }}" required>
         </div>
 
         <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea name="description" class="form-control" rows="5">{{ $blog->description }}</textarea>
+            <label class="form-label">YouTube Video URL</label>
+            <input type="url" name="video_url" class="form-control" value="{{ $testimonial->video_url }}" required>
         </div>
 
         <div class="mb-3">
-            <label>Current Image:</label><br>
-            @if($blog->image)
-                <img src="{{ asset('storage/' . $blog->image) }}" width="150" class="mb-2">
-            @else
-                No image uploaded.
-            @endif
+            <label class="form-label">Client Name (optional)</label>
+            <input type="text" name="client_name" class="form-control" value="{{ $testimonial->client_name }}">
         </div>
 
-        <div class="mb-3">
-            <label for="image" class="form-label">Change Image</label>
-            <input type="file" class="form-control" name="image">
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Update Testimonial</button>
+            <a href="{{ route('testimonials.index') }}" class="btn btn-secondary">Back</a>
         </div>
-
-        <button type="submit" class="btn btn-primary w-100">Update Blog</button>
     </form>
 </div>
 

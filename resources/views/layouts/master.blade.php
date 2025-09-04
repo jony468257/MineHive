@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css-m/owl.theme.default.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css-m/rev-settings.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css-m/plugins.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
     {{-- <link rel="stylesheet" href="{{ asset('assets/css-m/style.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('assets/css-m/responsive.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>

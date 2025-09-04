@@ -13,6 +13,11 @@ use App\Http\Controllers\NewsSourceController;
 use App\Http\Controllers\ConsultancyController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\SliderImageController;
+use App\Http\Controllers\AgencySectionController;
+
 
  
 
@@ -27,6 +32,11 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::resource('news', NewsSourceController::class);
     Route::resource('consultancy', ConsultancyController::class);
     Route::resource('blogs', BlogController::class);
+    Route::resource('gallery', GalleryController::class);
+    Route::resource('testimonials', TestimonialController::class);
+    Route::resource('sliders', SliderImageController::class);
+    Route::resource('agency', AgencySectionController::class);
+
 
 });
 

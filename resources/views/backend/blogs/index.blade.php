@@ -89,7 +89,7 @@
         <table class="table table-dark table-striped align-middle">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>Id</th>
                     <th>Title</th>
                     <th>Image</th>
                     <th>Created</th>

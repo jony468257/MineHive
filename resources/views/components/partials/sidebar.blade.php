@@ -117,13 +117,15 @@
                         <a href="{{ route('news.index') }}"><span class="sub-menu-name">News</span></a>
                          <a href="{{ route('consultancy.index') }}"><span class="sub-menu-name">Consultancy</span></a>
                         <a href="{{ route('blogs.index') }}"><span class="sub-menu-name">Blog</span></a>
+                        <a href="{{ route('gallery.index') }}"><span class="sub-menu-name">Gallery</span></a>
+                        <a href="{{ route('testimonials.index') }}"><span class="sub-menu-name">Testimonials</span></a>
                     </div>
                 </div>
 
                 <div class="nav-collapse mt-3">
-                    <div class="collapse-head">Menu Group 2</div>
+                    <div class="collapse-head">About</div>
                     <div class="collapse-item">
-                        <a href="#"><span class="sub-menu-name">Item 1</span></a>
+                        <a href="{{ route('agency.index') }}"><span class="sub-menu-name">agency</span></a>
                         <a href="#"><span class="sub-menu-name">Item 2</span></a>
                         <a href="#"><span class="sub-menu-name">Item 3</span></a>
                     </div>

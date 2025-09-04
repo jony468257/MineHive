@@ -10,9 +10,313 @@
     </div><!-- .container END -->
     </header> <!-- End header section -->
     </div>
+    <style>
+        /* ===== Basic Reset ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
 
-    <!-- rev slider strart -->
-    <div id="rev_slider_6_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" data-alias="slider-2"
+        body {
+            background: #121212;
+            color: #fff;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 8%;
+            min-height: 90vh;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2b2b2b 100%);
+        }
+
+        /* ===== Left Side ===== */
+        .hero-left {
+            max-width: 50%;
+        }
+
+        .hero-left h1 {
+            font-size: 48px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #ff4c4c;
+        }
+
+        .hero-left p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #f0f0f0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .cta-buttons button {
+            padding: 15px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #ff4c4c;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(255, 76, 76, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #ff1f1f;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 31, 31, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ff4c4c;
+            border: 2px solid #ff4c4c;
+        }
+
+        .btn-secondary:hover {
+            background: #ff4c4c;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .usp {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .usp div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            color: #f0f0f0;
+        }
+
+        .usp div::before {
+            content: '✅';
+            color: #00ff00;
+        }
+
+        /* ===== Right Side ===== */
+        .hero-right {
+            position: relative;
+            width: 45%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ===== Platform Icons ===== */
+        .platform-icon {
+            width: 90px;
+            /* increased from 60px */
+            height: 90px;
+            /* increased from 60px */
+            border-radius: 50%;
+            background: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px;
+            cursor: pointer;
+            position: absolute;
+            transition: all 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .platform-icon img {
+            width: 50px;
+            /* increased logo size */
+            height: auto;
+        }
+
+        .platform-icon:hover {
+            transform: scale(1.2);
+            /* slightly smaller scale for bigger icons */
+            box-shadow: 0 0 20px #ff4c4c;
+        }
+
+        .platform-tooltip {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff4c4c;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 13px;
+            display: none;
+            white-space: nowrap;
+        }
+
+        /* ===== Floating Animation ===== */
+        @keyframes float1 {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(25px, 25px);
+            }
+
+            /* slightly bigger movement */
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes float2 {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-25px, -20px);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes float3 {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(20px, -30px);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        .icon-google {
+            top: 20%;
+            left: 30%;
+            animation: float1 5s infinite ease-in-out;
+        }
+
+        .icon-youtube {
+            top: 40%;
+            left: 70%;
+            animation: float2 6s infinite ease-in-out;
+        }
+
+        .icon-facebook {
+            top: 60%;
+            left: 20%;
+            animation: float3 7s infinite ease-in-out;
+        }
+
+        .icon-instagram {
+            top: 25%;
+            left: 60%;
+            animation: float2 5.5s infinite ease-in-out;
+        }
+
+        .icon-linkedin {
+            top: 55%;
+            left: 50%;
+            animation: float1 6.5s infinite ease-in-out;
+        }
+
+        .icon-pinterest {
+            top: 35%;
+            left: 40%;
+            animation: float3 6s infinite ease-in-out;
+        }
+
+        /* ===== Growth Chart ===== */
+        .growth-chart {
+            position: absolute;
+            bottom: 20px;
+            width: 80%;
+            height: 4px;
+            background: #ff4c4c;
+            clip-path: polygon(0% 100%, 10% 60%, 20% 70%, 30% 50%, 40% 65%, 50% 40%, 60% 45%, 70% 30%, 80% 35%, 90% 15%, 100% 20%);
+        }
+    </style>
+
+    <div class="hero">
+        <!-- Left Side -->
+        <div class="hero-left">
+            <h1>We Make Your Brand Go Viral in the Digital World</h1>
+            <p>Targeted marketing on Google, YouTube, Facebook, Instagram, LinkedIn, and Pinterest that delivers measurable
+                results.</p>
+
+            <div class="cta-buttons">
+                <button class="btn-primary">Start My Campaign</button>
+                <button class="btn-secondary">Get My Free Marketing Plan</button>
+            </div>
+
+        </div>
+
+        <!-- Right Side -->
+        <div class="hero-right">
+            <div class="platform-icon icon-google">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+                <div class="platform-tooltip">Search Ads, Display Ads, Remarketing</div>
+            </div>
+            <div class="platform-icon icon-youtube">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
+                <div class="platform-tooltip">Video Ads, Channel Growth</div>
+            </div>
+            <div class="platform-icon icon-facebook">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+                    alt="Facebook">
+                <div class="platform-tooltip">Facebook Ads, Engagement Campaigns</div>
+            </div>
+            <div class="platform-icon icon-instagram">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram">
+                <div class="platform-tooltip">Instagram Ads, Stories Campaigns</div>
+            </div>
+            <div class="platform-icon icon-linkedin">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn">
+                <div class="platform-tooltip">LinkedIn Ads, B2B Marketing</div>
+            </div>
+            <div class="platform-icon icon-pinterest">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png" alt="Pinterest">
+                <div class="platform-tooltip">Pinterest Ads, Visual Campaigns</div>
+            </div>
+
+            <!-- Growth Chart -->
+            <div class="growth-chart"></div>
+        </div>
+    </div>
+
+    <script>
+        const icons = document.querySelectorAll('.platform-icon');
+        icons.forEach(icon => {
+            icon.addEventListener('mouseenter', () => {
+                icon.querySelector('.platform-tooltip').style.display = 'block';
+            });
+            icon.addEventListener('mouseleave', () => {
+                icon.querySelector('.platform-tooltip').style.display = 'none';
+            });
+        });
+    </script>
+
+    {{-- <div id="rev_slider_6_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" data-alias="slider-2"
         data-source="gallery" style="margin:0px auto;background:transparent;padding:0px;margin-top:0px;margin-bottom:0px;">
         <!-- START REVOLUTION SLIDER 5.4.8 fullwidth mode -->
         <div id="rev_slider_6_1" class="rev_slider fullwidthabanner tp-overflow-hidden" style="display:none;"
@@ -119,7 +423,7 @@
                         data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
                         data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
                         style="z-index: 11; min-width: 183px; max-width: 183px; max-width: 32px; max-width: 32px; white-space: nowrap; font-size: 24px; line-height: 22px; font-weight: 300; color: #ffffff; letter-spacing: 0px;font-family:Lato;">
-                        Grow business by </div>
+                        We Make Your Brand Go Viral in the Digital World</div>
 
                     <!-- LAYER NR. 8 -->
                     <div class="tp-caption   tp-resizeme" id="slide-25-layer-5" data-x="['left','left','left','left']"
@@ -131,7 +435,7 @@
                         data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
                         data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
                         style="z-index: 12; min-width: 540px; max-width: 540px; white-space: normal; font-size: 56px; line-height: 61.6px; font-weight: 900; color: #ffffff; letter-spacing: 0px;font-family:Lato;">
-                        Digital Marketing </div>
+                        Subheadline:</div>
 
                     <!-- LAYER NR. 9 -->
                     <div class="tp-caption   tp-resizeme" id="slide-25-layer-7" data-x="['left','left','left','left']"
@@ -142,8 +446,7 @@
                         data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]"
                         data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
                         style="z-index: 13; min-width: 445px; max-width: 445px; white-space: normal; font-size: 15px; line-height: 26px; font-weight: 400; color: #ffffff; letter-spacing: 0px;font-family:Lato;">
-                        Share processes and data securely on a need to know basis
-                        need for reconciliation it combines. </div>
+                        Targeted marketing on Google, YouTube, Facebook, Instagram, LinkedIn, and Pinterest that delivers measurable results.” </div>
 
                     <!-- LAYER NR. 10 -->
                     <div class="tp-caption rev-btn " id="slide-25-layer-8" data-x="['left','left','left','left']"
@@ -414,7 +717,7 @@
             </ul>
             <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
         </div>
-    </div><!-- END REVOLUTION SLIDER --><!-- end rev slider strart -->
+    </div><!-- END REVOLUTION SLIDER --><!-- end rev slider strart --> --}}
     <style>
         body {
             margin: 0;
@@ -564,176 +867,95 @@
         }
     </style>
 
+    <!-- Services Cards Section -->
     <section class="py-5" style="background-color: #000;">
         <div class="container">
-            <div class="row gy-5 gx-4">
+            <div class="row g-4">
+
                 <!-- Card 1 -->
-                <div class="col-md-4">
-                    <a href="{{ route('services.details') }}" class="text-decoration-none">
-                        <div class="card bg-dark text-white h-100 border-0 shadow-sm p-3 mb-4 text-center">
-                            <div class="mx-auto mb-3"
-                                style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden;">
-                                <img src="{{ asset('assets/images-m/marketing.png') }}" alt="Image 1"
-                                    style="width: 100%; height: 100%; object-fit: cover;">
-                            </div>
-                            <div class="card-body px-2">
-                                <h2 class="card-title text-danger">Digital Marketing</h2>
-                                <p class="card-text">Elevate your online presence with our strategic digital marketing
-                                    solutions, merging tactics and trends to grow your brand.</p>
-                            </div>
-                        </div>
-                    </a>
+                <div class="col-md-6 col-lg-4">
+                    <div class="service-card text-white text-center h-100 p-4">
+                        <img src="{{ asset('assets/images-m/service-tab/analytics.png') }}" alt="Google Marketing"
+                            class="service-icon mb-3">
+                        <h4 class="text-red fw-bold mb-2">Google Marketing</h4>
+                        <p class="text-light">
+                            Capture high-intent users exactly when they’re searching. From search and display to remarketing
+                            — Google puts your brand front and center.
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="col-md-4">
-                    <div class="card bg-dark text-white h-100 border-0 shadow-sm p-3 mb-4 text-center">
-                        <div class="mx-auto mb-3"
-                            style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden;">
-                            <img src="{{ asset('assets/images-m/content.png') }}" alt="Image 2"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="card-body px-2">
-                            <h2 class="card-title text-danger">VSMM</h2>
-                            <p class="card-text">Navigate and optimize your brand’s social landscape for maximum engagement
-                                through our Virtual Social Media Marketing.</p>
-                        </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="service-card text-white text-center h-100 p-4">
+                        <img src="{{ asset('assets/images-m/service-tab/youtube.png') }}" alt="YouTube Marketing"
+                            class="service-icon mb-3">
+                        <h4 class="text-red fw-bold mb-2">YouTube Marketing</h4>
+                        <p class="text-light">
+                            Tell your story on the world’s largest video platform. We help you create, optimize, and promote
+                            content that drives awareness and conversion.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="col-md-4">
-                    <div class="card bg-dark text-white h-100 border-0 shadow-sm p-3 mb-4 text-center">
-                        <div class="mx-auto mb-3"
-                            style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden;">
-                            <img src="{{ asset('assets/images-m/seo.png') }}" alt="Image 3"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="card-body px-2">
-                            <h2 class="card-title text-danger">SEO</h2>
-                            <p class="card-text">Ensure your brand is seen online with expert SEO strategies that put you
-                                on
-                                top of search results.</p>
-                        </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="service-card text-white text-center h-100 p-4">
+                        <img src="{{ asset('assets/images-m/service-tab/bullhorn.png') }}" alt="Social Media Marketing"
+                            class="service-icon mb-3">
+                        <h4 class="text-red fw-bold mb-2">Social Media Marketing</h4>
+                        <p class="text-light">
+                            Build awareness, drive engagement, and boost sales across major social platforms.
+                        </p>
                     </div>
                 </div>
-            </div> <!-- row end -->
-        </div> <!-- container end -->
+
+            </div>
+        </div>
     </section>
+
+    <!-- Custom Style -->
     <style>
-        * {
-            box-sizing: border-box;
+        .service-card {
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+            position: relative;
+            transition: all 0.4s ease-in-out;
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #111;
-            font-family: Arial, sans-serif;
+        .service-card:hover {
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+            transform: translateY(-6px);
         }
 
-        .consultancy-section {
-            display: flex;
-            flex-wrap: wrap;
-            background-color: #1c1c1c;
-            color: white;
-            
-            padding: 0;
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
         }
 
-        .left-image-wrapper {
-            flex: 1;
-            min-height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .text-red {
+            color: #ff0000 !important;
         }
 
-        .left-image-wrapper img {
-            max-width: 100%;
-            height: auto;
-            object-fit: cover;
-        }
-
-        .right-form {
-            flex: 1;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background-color: #1c1c1c;
-        }
-
-        .right-form h2 {
-            color: white;
-            border-bottom: 2px solid red;
-            display: inline-block;
-            margin-bottom: 30px;
-            font-size: 28px;
-        }
-
-        .form-step {
-            display: none;
-        }
-
-        .form-step.active {
-            display: block;
-        }
-
-        .form-step input,
-        .form-step textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 2px solid white;
-            background-color: #000;
-            color: white;
-            border-radius: 5px;
-            outline: none;
-            font-size: 16px;
-        }
-
-        .form-step input:focus,
-        .form-step textarea:focus {
-            border-color: red;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .btn {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            background-color: darkred;
-        }
-
-        @media (max-width: 992px) {
-            .consultancy-section {
-                flex-direction: column;
+        @media (max-width: 767.98px) {
+            .service-icon {
+                width: 60px;
+                height: 60px;
             }
 
-            .left-image-wrapper {
-                order: 1;
-                padding: 20px;
+            .service-card h4 {
+                font-size: 20px;
             }
 
-            .right-form {
-                order: 2;
-                padding: 30px 20px;
+            .service-card p {
+                font-size: 15px;
             }
         }
     </style>
+
+
     <section class="consultancy-section py-5" style="background-color:#111;">
         <div class="container">
             <div class="row align-items-center">
@@ -758,8 +980,8 @@
                         <div class="form-step active mb-3" id="step1">
                             <input type="text" name="full_name" placeholder="Full Name" class="form-control mb-2"
                                 required>
-                            <input type="text" name="company_name" placeholder="Company Name"
-                                class="form-control mb-2" required>
+                            <input type="text" name="company_name" placeholder="Company Name" class="form-control mb-2"
+                                required>
                             <input type="text" name="designation" placeholder="Designation" class="form-control mb-2"
                                 required>
                             <div class="d-flex justify-content-end mt-2">
@@ -818,7 +1040,7 @@
 
 
 
- 
+
 
     <style>
         .benefit-section {
@@ -911,115 +1133,132 @@
         </div>
     </section>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     <section class="py-5" style="background-color: #111;">
         <div class="container">
-            <h2 class="text-center text-danger mb-5" style="font-weight: 700;">Innovating Success Together</h2>
-            <div class="image-slider">
+            <h2 class="text-center text-danger fw-bold mb-5" style="font-size: 2.5rem;">Innovating Success Together</h2>
 
-                <div class="px-3">
-                    <div class="card bg-dark border-0">
-                        <img src="" alt="Slide Image" class="card-img-top"
-                            style="height: 200px; object-fit: cover; border-radius: 10px;">
-                    </div>
+            <!-- Swiper Slider -->
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    @forelse($slides as $slide)
+                        <div class="swiper-slide">
+                            <div class="card bg-dark border-0">
+                                <img src="{{ asset('storage/' . $slide->image) }}"
+                                    alt="{{ $slide->title ?? 'Slide Image' }}" class="card-img-top"
+                                    style="height: 220px; object-fit: cover; border-radius: 10px;">
+
+                            </div>
+                        </div>
+                    @empty
+                        <p class="text-center text-white">No slides found.</p>
+                    @endforelse
                 </div>
-
-            </div>
-
-            <!-- Custom Navigation Buttons -->
-            <div class="text-center mt-4">
-                <button class="btn btn-outline-danger me-2 prev-btn">← Prev</button>
-                <button class="btn btn-outline-danger next-btn">Next →</button>
             </div>
         </div>
     </section>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $('.image-slider').slick({
-                slidesToShow: 4,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 2000,
-                arrows: false,
-                dots: false,
-                responsive: [{
-                        breakpoint: 992,
-                        settings: {
-                            slidesToShow: 3
-                        }
-                    },
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 2
-                        }
-                    },
-                    {
-                        breakpoint: 576,
-                        settings: {
-                            slidesToShow: 1
-                        }
-                    }
-                ]
-            });
-
-            // Custom buttons
-            $('.prev-btn').click(function() {
-                $('.image-slider').slick('slickPrev');
-            });
-
-            $('.next-btn').click(function() {
-                $('.image-slider').slick('slickNext');
-            });
+        const swiper = new Swiper(".mySwiper", {
+            slidesPerView: 4,
+            spaceBetween: 15,
+            loop: true,
+            speed: 3000,
+            autoplay: {
+                delay: 1,
+                disableOnInteraction: false,
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1
+                },
+                576: {
+                    slidesPerView: 2
+                },
+                768: {
+                    slidesPerView: 3
+                },
+                992: {
+                    slidesPerView: 4
+                },
+            },
         });
     </script>
+
     <section class="py-5" style="background-color: #111;">
         <div class="container">
-            <h2 class="text-center text-danger mb-4" style="font-weight: bold;">Clients Says</h2>
+            <h2 class="text-center text-danger fw-bold mb-5" style="font-size: 2.5rem;">Client Testimonials</h2>
 
-            <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Client Testimonial Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+            <div class="row g-4">
+                @forelse($testimonials as $testimonial)
+                    <div class="col-md-6 col-sm-12">
+                        <div class="card bg-dark text-white shadow-sm border border-danger h-100">
+                            <div class="card-body">
+                                <h5 class="card-title text-danger fw-bold">{{ $testimonial->title }}</h5>
+                                @if ($testimonial->client_name)
+                                    <p class="text-white-50 mb-3">- {{ $testimonial->client_name }}</p>
+                                @endif
+
+                                <div class="ratio ratio-16x9 mb-3">
+                                    <iframe src="{{ $testimonial->video_url }}" title="{{ $testimonial->title }}"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen style="border-radius: 10px;">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12">
+                        <p class="text-center text-white">No testimonials found.</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>
-    {{-- <iframe 
-    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-    title="Client Testimonial"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen>
-</iframe> --}}
-
-
 
     <section class="py-5" style="background-color: #111;">
         <div class="container">
-            <h2 class="text-center text-danger fw-bold mb-5">Memories & Moments</h2>
+            <h2 class="text-center text-danger fw-bold mb-5" style="font-size: 3rem; letter-spacing: 1px;">Memories &
+                Moments</h2>
 
             <div class="row g-4">
-                @for ($i = 1; $i <= 6; $i++)
+                @forelse($galleries as $gallery)
                     <div class="col-md-4 col-sm-6">
                         <div class="gallery-img border border-dark rounded overflow-hidden shadow-sm">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal{{ $i }}">
-                                <img src="{{ asset('assets/gallery/image' . $i . '.jpg') }}"
-                                    alt="Gallery Image {{ $i }}" class="img-fluid w-100"
-                                    style="height: 250px; object-fit: cover;">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal{{ $gallery->id }}">
+                                <img src="{{ asset('storage/' . $gallery->image) }}" alt="{{ $gallery->title }}"
+                                    class="img-fluid w-100" style="height: 250px; object-fit: cover;">
                             </a>
                         </div>
                     </div>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="imageModal{{ $i }}" tabindex="-1"
-                        aria-labelledby="imageModalLabel{{ $i }}" aria-hidden="true">
+                    <div class="modal fade" id="imageModal{{ $gallery->id }}" tabindex="-1"
+                        aria-labelledby="imageModalLabel{{ $gallery->id }}" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content bg-dark">
                                 <div class="modal-body p-0">
-                                    <img src="{{ asset('assets/gallery/image' . $i . '.jpg') }}" class="img-fluid w-100"
-                                        alt="Full Image {{ $i }}">
+                                    <img src="{{ asset('storage/' . $gallery->image) }}" class="img-fluid w-100"
+                                        alt="{{ $gallery->title }}">
                                 </div>
                                 <div class="modal-footer bg-dark border-0">
                                     <button type="button" class="btn btn-outline-light"
@@ -1028,47 +1267,46 @@
                             </div>
                         </div>
                     </div>
-                @endfor
+                @empty
+                    <div class="col-12">
+                        <p class="text-center text-white">No images found.</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>
 
-   <section class="py-5" style="background-color: #111;">
-    <div class="container">
-        <h2 class="text-center text-danger fw-bold mb-5">Latest Blogs</h2>
+    <section class="py-5" style="background-color: #111;">
+        <div class="container">
+            <h2 class="text-center text-danger fw-bold mb-5 display-5">Latest Blogs</h2>
 
-        <div class="row g-4">
-            @forelse($blogs as $blog)
-                <div class="col-md-4">
-                    <div class="card h-100 bg-dark text-white shadow-sm border-0">
-                        @if($blog->image && Storage::disk('public')->exists($blog->image))
-                            <img src="{{ asset('storage/' . $blog->image) }}" class="card-img-top"
-                                 style="height: 220px; object-fit: cover;" alt="{{ $blog->title }}">
-                        @else
-                            <img src="" class="card-img-top"
-                                 style="height: 220px; object-fit: cover;" alt="Default Blog Image">
-                        @endif
+            <div class="row g-5">
+                @forelse($blogs as $blog)
+                    <div class="col-md-4">
+                        <div class="card h-100 bg-dark text-white shadow-lg border-0">
+                            @if ($blog->image && Storage::disk('public')->exists($blog->image))
+                                <img src="{{ asset('storage/' . $blog->image) }}" class="card-img-top"
+                                    style="height: 300px; object-fit: cover;" alt="{{ $blog->title }}">
+                            @else
+                                <img src="" class="card-img-top" style="height: 300px; object-fit: cover;"
+                                    alt="Default Blog Image">
+                            @endif
 
-                        <div class="card-body">
-                            <h5 class="card-title text-danger">{{ $blog->title }}</h5>
-                            <p class="card-text text-white-50">
-                                {{ \Carbon\Carbon::parse($blog->created_at)->format('d M, Y') }}
-                            </p>
-                            {{-- <a href="{{ route('blogs.show', $blog->id) }}" class="btn btn-sm btn-danger mt-2">Read More</a> --}}
+                            <div class="card-body">
+                                <h4 class="card-title text-danger fw-bold">{{ $blog->title }}</h4>
+                                <p class="card-text text-white-50 fs-6 mb-3">
+                                    {{ \Carbon\Carbon::parse($blog->created_at)->format('d M, Y') }}
+                                </p>
+                                {{-- <a href="{{ route('blogs.show', $blog->id) }}" class="btn btn-sm btn-danger mt-2">Read More</a> --}}
+                            </div>
                         </div>
                     </div>
-                </div>
-            @empty
-                <div class="col-12">
-                    <p class="text-center text-white">No blogs found.</p>
-                </div>
-            @endforelse
+                @empty
+                    <div class="col-12">
+                        <p class="text-center text-white fs-5">No blogs found.</p>
+                    </div>
+                @endforelse
+            </div>
         </div>
-    </div>
-</section>
-
-
-
-
-
+    </section>
 @endsection
